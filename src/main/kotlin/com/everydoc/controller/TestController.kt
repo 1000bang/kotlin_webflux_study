@@ -1,6 +1,7 @@
 package com.everydoc.step1
 
 import com.everydoc.service.Step2Service
+import com.everydoc.service.Step3Service
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -17,6 +18,8 @@ class Step1Controller {
 
     private val step1Service: Step1Service = Step1Service()
     private val step2Service: Step2Service = Step2Service()
+    private val step3Service: Step3Service = Step3Service()
+
     @GetMapping("/step1")
     fun hello(): Mono<String> {
         val message = step1Service.hello()
@@ -26,6 +29,12 @@ class Step1Controller {
     @GetMapping("/step2")
     fun step2(): Mono<String> {
         val message = step2Service.hello()
+        return Mono.just(message)
+    }
+
+    @GetMapping("/step3")
+    fun step3(): Mono<String> {
+        val message = step3Service.hello()
         return Mono.just(message)
     }
 }
