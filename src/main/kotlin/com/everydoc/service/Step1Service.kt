@@ -1,4 +1,4 @@
-package com.everydoc.service
+package com.everydoc.step1
 
 import org.springframework.stereotype.Service
 import java.util.ArrayDeque
@@ -152,16 +152,21 @@ class Step1Service {
     fun practiceLoop(): String {
         val sb = StringBuilder()
 
+        // sb에 1부터 5까지 숫자를 추가
         for (i in 1..5) sb.append("$i ")
         sb.append("| ")
+        // sb에 1부터 5까지 숫자를 추가 (5는 제외)
         for (i in 1 until 5) sb.append("$i ")
         sb.append("| ")
+        // sb에 5부터 1까지 숫자를 추가
         for (i in 5 downTo 1) sb.append("$i ")
         sb.append("| ")
 
         val list = listOf(10, 20, 30)
         for (v in list) sb.append("$v ")
         sb.append("| ")
+
+        // list의 인덱스와 값을 추가
         for ((idx, v) in list.withIndex()) sb.append("${idx}:$v ")
 
         var count = 0
@@ -194,12 +199,14 @@ class Step1Service {
         }
 
         val obj: Any = "hello"
+        // when 표현식 (조건식) 타입 체크
         val typeResult = when (obj) {
             is String -> "길이=${obj.length}"
             is Int -> "정수"
             else -> "기타"
         }
 
+        // when 표현식 (조건식)
         val grade = 85
         val pass = when {
             grade >= 90 -> "A"
