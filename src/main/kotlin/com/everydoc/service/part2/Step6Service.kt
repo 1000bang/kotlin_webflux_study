@@ -1,4 +1,4 @@
-package com.everydoc.service.part1
+package com.everydoc.service.part2
 
 import org.springframework.stereotype.Service
 

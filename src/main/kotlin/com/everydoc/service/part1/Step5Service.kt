@@ -1,4 +1,4 @@
-package com.everydoc.service
+package com.everydoc.service.part1
 
 import org.springframework.stereotype.Service
 
@@ -74,7 +74,6 @@ class Step5Service {
 
     // ---------- 6. 빈 컬렉션 선언 후 for/if 로 하나씩 add·put (실전 패턴) ----------
     fun practiceCollectInLoop(): String {
-        // emptyList()는 불변 → add() 없음. 조건/반복으로 넣을 땐 mutableListOf()
         val responseData = mutableListOf<String>()
         val sourceList = listOf("  a  ", "", "  b  ", " ", "  c  ")
         for (item in sourceList) {
