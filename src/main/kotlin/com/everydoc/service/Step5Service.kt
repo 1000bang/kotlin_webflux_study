@@ -11,6 +11,13 @@ import org.springframework.stereotype.Service
 class Step5Service {
 
     fun hello(): String {
+        println(practiceList())
+        println(practiceSet())
+        println(practiceMap())
+        println(practiceFilterMapForEach())
+        println(practiceFoldReduce())
+        println(practiceCollectInLoop())
+        println(practiceSortedDistinctGroupBy())
         return "Step5: List/Set/Map, 불변·가변, filter/map/forEach/fold/groupBy 연습이 있습니다."
     }
 

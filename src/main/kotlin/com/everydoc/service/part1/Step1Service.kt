@@ -1,4 +1,4 @@
-package com.everydoc.step1
+package com.everydoc.service.part1
 
 import org.springframework.stereotype.Service
 import java.util.ArrayDeque
