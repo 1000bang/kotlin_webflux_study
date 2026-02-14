@@ -1,0 +1,21 @@
+package com.everydoc.controller.part3
+
+import com.everydoc.service.part3.Step10Service
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
+import reactor.core.publisher.Mono
+
+/**
+ * Part 3 — WebFlux 개념 (Step 10~13)
+ * - 웹플럭스란, 웹플럭스 특징, Reactor 기초, 블로킹 vs 논블로킹
+ */
+@RestController
+@RequestMapping("/test")
+class Part3Controller(
+    private val step10Service: Step10Service,
+) {
+
+    @GetMapping("/step10")
+    fun step10(): Mono<String> = Mono.just(step10Service.hello())
+}

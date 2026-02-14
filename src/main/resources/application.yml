@@ -4,3 +4,20 @@ server:
 spring:
   application:
     name: everydoc-api
+  datasource:
+    url: jdbc:postgresql://106.240.247.44:5432/postgres
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: kpoint01!
+  sql:
+    init:
+      mode: never   # DB에 이미 orders/order_items 데이터 있음
+  # H2 (로컬 테스트용) 쓰려면 아래로 교체
+  # datasource:
+  #   url: jdbc:h2:mem:bench;DB_CLOSE_DELAY=-1;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE
+  #   driver-class-name: org.h2.Driver
+  #   username: sa
+  #   password:
+  # h2:
+  #   console:
+  #     enabled: true

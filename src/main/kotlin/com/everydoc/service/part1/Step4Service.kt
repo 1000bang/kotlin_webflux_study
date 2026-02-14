@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service
 class Step4Service {
 
     fun hello(): String {
+        Thread.sleep(400)
         println(practiceNullableType("토스 결제"))
         println(practiceSafeCall("hello"))
         println(practiceElvis("elvis"))
