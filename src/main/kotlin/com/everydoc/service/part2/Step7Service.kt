@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service
 class Step7Service {
 
     fun hello(): String {
+        println(practiceExtensionFunction())
+        println(practiceNullableReceiver())
+        println(practiceGenericExtension())
+        println(practiceExtensionProperty())
         return "Step7: 확장 함수·확장 프로퍼티 연습이 있습니다."
     }
 

@@ -35,13 +35,6 @@ Kotlin + Spring WebFlux 단계별 학습용 프로젝트.
 | 18 | 테스트 | @WebFluxTest, WebTestClient, StepVerifier |
 | **Part 5 — 정리** |
 | 19 | 실전 패턴 | Controller → Service 흐름, 예외 처리, 로깅 |
-| 20 | 다음 단계 | R2DBC, 코루틴 연동, 성능/모니터링 등 |
 
 ---
 
-## 실행
-```bash
-./gradlew bootRun
-```
-- Step 1~7 확인: `GET http://localhost:8080/test/step1` ~ `/test/step7`
-- 문서: `docs/STEP1.md` ~ `docs/STEP7.md`
