@@ -2,6 +2,7 @@ package com.everydoc.controller.part4
 
 import com.everydoc.service.part4.Step14Service
 import com.everydoc.service.part4.Step15Service
+import com.everydoc.service.part4.Step16Service
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -21,6 +22,7 @@ import reactor.core.publisher.Mono
 class Part4Controller(
     private val step14Service: Step14Service,
     private val step15Service: Step15Service,
+    private val step16Service: Step16Service,
 ) {
 
     @GetMapping("/step14")
@@ -51,5 +53,35 @@ class Part4Controller(
         @PathVariable name: String,
         @RequestParam(defaultValue = "1") repeat: Int,
     ): Mono<String> = step15Service.greet(name, repeat)
+
+    // ── Step 16: 리액티브 Service ──────────────────────────
+
+    /** GET /test/step16 — Mono.fromCallable 예시 */
+    @GetMapping("/step16")
+    fun step16(): Mono<String> = step16Service.fromCallableExample()
+
+    /** GET /test/step16/summary — 핵심 요약 */
+    @GetMapping("/step16/summary")
+    fun step16Summary(): Mono<String> = step16Service.summary()
+
+    /** GET /test/step16/map — map 체이닝 예시 */
+    @GetMapping("/step16/map")
+    fun step16Map(): Mono<String> = step16Service.mapExample()
+
+    /** GET /test/step16/flatmap — flatMap 체이닝 예시 */
+    @GetMapping("/step16/flatmap")
+    fun step16FlatMap(): Mono<String> = step16Service.flatMapExample()
+
+    /** GET /test/step16/error-resume — onErrorResume 예시 */
+    @GetMapping("/step16/error-resume")
+    fun step16ErrorResume(): Mono<String> = step16Service.onErrorResumeExample()
+
+    /** GET /test/step16/error-return — onErrorReturn 예시 */
+    @GetMapping("/step16/error-return")
+    fun step16ErrorReturn(): Mono<String> = step16Service.onErrorReturnExample()
+
+    /** GET /test/step16/combined — fromCallable + flatMap + onErrorResume 조합 */
+    @GetMapping("/step16/combined")
+    fun step16Combined(): Mono<String> = step16Service.combined()
 }
 
