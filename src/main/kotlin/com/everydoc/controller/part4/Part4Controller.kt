@@ -6,6 +6,7 @@ import com.everydoc.service.part4.Step15Service
 import com.everydoc.service.part4.Step16Service
 import com.everydoc.service.part4.Step17Service
 import com.everydoc.service.part4.Step18Service
+import com.everydoc.service.part4.Step19Service
 import org.springframework.http.MediaType
 import org.springframework.http.codec.multipart.FilePart
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -33,6 +34,7 @@ class Part4Controller(
     private val step16Service: Step16Service,
     private val step17Service: Step17Service,
     private val step18Service: Step18Service,
+    private val step19Service: Step19Service,
 ) {
 
     @GetMapping("/step14")
@@ -180,5 +182,24 @@ class Part4Controller(
         @PathVariable id: Long,
         @RequestParam status: String,
     ): Mono<String> = step18Service.updateStatus(id, status)
+
+    // ── Step 19: 테스트 ──────────────────────────
+
+    /** GET /test/step19/summary — 핵심 요약 */
+    @GetMapping("/step19/summary")
+    fun step19Summary(): Mono<String> = step19Service.summary()
+
+    /** GET /test/step19/greet?name=철수 — StepVerifier 테스트 대상 */
+    @GetMapping("/step19/greet")
+    fun step19Greet(@RequestParam name: String): Mono<String> =
+        step19Service.greet(name)
+
+    /** GET /test/step19/numbers — Flux StepVerifier 테스트 대상 */
+    @GetMapping("/step19/numbers")
+    fun step19Numbers(): Flux<Int> = step19Service.numbers()
+
+    /** GET /test/step19/sum — 집계 WebTestClient 테스트 대상 */
+    @GetMapping("/step19/sum")
+    fun step19Sum(): Mono<Long> = step19Service.sum()
 }
 
