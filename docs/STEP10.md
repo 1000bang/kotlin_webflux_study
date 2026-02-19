@@ -75,8 +75,3 @@ Java에서는 `org.reactivestreams` 패키지로 인터페이스가 정의되어
 - 학습 순서: "웹플럭스란(Step 10)" → Reactor 기초(Mono, Flux) → Controller/Service에서 Mono/Flux 쓰기.
 
 ---
-
-## 이 프로젝트에서 확인하기
-- `build.gradle.kts` 에 `spring-boot-starter-webflux` 가 있는지 확인.
-- Controller에서 `Mono.just(...)` 반환하는 부분이 WebFlux가 처리하는 응답임을 확인.
-- `./gradlew bootRun` 후 `http://localhost:8080/test/step10` 호출해 동작 확인.

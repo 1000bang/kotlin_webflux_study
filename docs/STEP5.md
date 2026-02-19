@@ -56,7 +56,7 @@ val default = map.getOrDefault(99, "?")
 
 | 생성 함수 | 타입 | 추가/삭제/수정 |
 |-----------|------|----------------|
-| listOf, setOf, mapOf, **emptyList()** | 읽기 전용 | **불가** |
+햐| listOf, setOf, mapOf, **emptyList()** | 읽기 전용 | **불가** |
 | mutableListOf, mutableSetOf, mutableMapOf | 가변 | 가능 |
 
 - **emptyList()** 는 읽기 전용이라 `.add()` 가 없다. 조건/반복으로 하나씩 넣을 때는 **mutableListOf()** 를 쓴다.

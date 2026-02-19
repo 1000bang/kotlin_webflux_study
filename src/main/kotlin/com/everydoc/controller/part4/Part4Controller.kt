@@ -1,12 +1,16 @@
 package com.everydoc.controller.part4
 
+import com.everydoc.domain.Order
 import com.everydoc.service.part4.Step14Service
 import com.everydoc.service.part4.Step15Service
 import com.everydoc.service.part4.Step16Service
 import com.everydoc.service.part4.Step17Service
+import com.everydoc.service.part4.Step18Service
 import org.springframework.http.MediaType
 import org.springframework.http.codec.multipart.FilePart
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -28,6 +32,7 @@ class Part4Controller(
     private val step15Service: Step15Service,
     private val step16Service: Step16Service,
     private val step17Service: Step17Service,
+    private val step18Service: Step18Service,
 ) {
 
     @GetMapping("/step14")
@@ -121,5 +126,59 @@ class Part4Controller(
     @PostMapping("/step17/upload-dbu", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
     fun step17UploadDbu(@RequestPart("file") filePart: FilePart): Mono<String> =
         step17Service.saveWithDataBufferUtils(filePart)
+
+    // ── Step 18: R2DBC ──────────────────────────
+
+    /** GET /test/step18/summary — 핵심 요약 */
+    @GetMapping("/step18/summary")
+    fun step18Summary(): Mono<String> = step18Service.summary()
+
+    /** GET /test/step18/orders — 전체 주문 조회 */
+    @GetMapping("/step18/orders")
+    fun step18FindAll(): Flux<Order> = step18Service.findAll()
+
+    /** GET /test/step18/orders/{id} — id로 단건 조회 */
+    @GetMapping("/step18/orders/{id}")
+    fun step18FindById(@PathVariable id: Long): Mono<Order> =
+        step18Service.findById(id)
+
+    /** GET /test/step18/orders/status/{status} — status로 조회 */
+    @GetMapping("/step18/orders/status/{status}")
+    fun step18FindByStatus(@PathVariable status: String): Flux<Order> =
+        step18Service.findByStatus(status)
+
+    /** GET /test/step18/orders/user/{userId} — userId로 조회 */
+    @GetMapping("/step18/orders/user/{userId}")
+    fun step18FindByUserId(@PathVariable userId: Long): Flux<Order> =
+        step18Service.findByUserId(userId)
+
+    /** POST /test/step18/orders — 주문 저장 */
+    @PostMapping("/step18/orders")
+    fun step18Save(@RequestBody order: Order): Mono<Order> =
+        step18Service.save(order)
+
+    /** DELETE /test/step18/orders/{id} — 주문 삭제 */
+    @DeleteMapping("/step18/orders/{id}")
+    fun step18Delete(@PathVariable id: Long): Mono<String> =
+        step18Service.delete(id)
+
+    // ── Step 18: @Query (Native SQL) ──────────────────────────
+
+    /** GET /test/step18/orders/amount/{min} — 금액 이상 조회 (@Query Native SQL) */
+    @GetMapping("/step18/orders/amount/{min}")
+    fun step18FindByAmount(@PathVariable min: Long): Flux<Order> =
+        step18Service.findByAmountGreaterThan(min)
+
+    /** GET /test/step18/orders/user/{userId}/sum — 총 주문 금액 합산 (@Query 집계) */
+    @GetMapping("/step18/orders/user/{userId}/sum")
+    fun step18SumAmount(@PathVariable userId: Long): Mono<Long> =
+        step18Service.sumAmountByUserId(userId)
+
+    /** PATCH /test/step18/orders/{id}/status — status 업데이트 (@Modifying @Query) */
+    @PatchMapping("/step18/orders/{id}/status")
+    fun step18UpdateStatus(
+        @PathVariable id: Long,
+        @RequestParam status: String,
+    ): Mono<String> = step18Service.updateStatus(id, status)
 }
 

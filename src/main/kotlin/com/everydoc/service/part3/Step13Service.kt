@@ -19,7 +19,7 @@ class Step13Service {
     /** Flux 예제: 1..3 숫자를 스트림으로 발행 후 문자열로 변환 */
     fun numbersAsString(): Mono<String> = Flux.range(1, 3)
         .collectList()
-        .map { list -> "Flux.range(1,3) = ${list.joinToString(\", \")}" }
+        .map { list -> "Flux.range(1,3) = ${list.joinToString(", ")}" }
 
     /** 여러 리액티브 메서드를 조합해서 하나의 응답으로 */
     fun composed(): Mono<String> =

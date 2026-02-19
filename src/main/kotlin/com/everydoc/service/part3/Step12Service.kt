@@ -25,9 +25,9 @@ class Step12Service {
 
     /** 블로킹 + 논블로킹 예제 둘 다 실행 후 한 번에 응답 */
     fun blockingAndNonBlocking(): Mono<String> = Mono.zip(blockingOnElastic(), nonBlockingExample())
-        .map { (blocking, nonBlocking) ->
+        .map { tuple ->
             "Step12 — 블로킹 vs 논블로킹\n" +
-                "1) $blocking\n" +
-                "2) $nonBlocking"
+                "1) ${tuple.t1}\n" +
+                "2) ${tuple.t2}"
         }
 }
