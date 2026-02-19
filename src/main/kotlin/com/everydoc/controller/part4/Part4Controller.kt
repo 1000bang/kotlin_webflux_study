@@ -3,12 +3,16 @@ package com.everydoc.controller.part4
 import com.everydoc.service.part4.Step14Service
 import com.everydoc.service.part4.Step15Service
 import com.everydoc.service.part4.Step16Service
+import com.everydoc.service.part4.Step17Service
+import org.springframework.http.MediaType
+import org.springframework.http.codec.multipart.FilePart
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RequestPart
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
@@ -23,6 +27,7 @@ class Part4Controller(
     private val step14Service: Step14Service,
     private val step15Service: Step15Service,
     private val step16Service: Step16Service,
+    private val step17Service: Step17Service,
 ) {
 
     @GetMapping("/step14")
@@ -83,5 +88,38 @@ class Part4Controller(
     /** GET /test/step16/combined — fromCallable + flatMap + onErrorResume 조합 */
     @GetMapping("/step16/combined")
     fun step16Combined(): Mono<String> = step16Service.combined()
+
+    // ── Step 17: 파일 업로드 (WebFlux) ──────────────────────────
+
+    /** GET /test/step17/summary — 핵심 요약 */
+    @GetMapping("/step17/summary")
+    fun step17Summary(): Mono<String> = step17Service.summary()
+
+    /** POST /test/step17/info — FilePart 메타데이터 확인 */
+    @PostMapping("/step17/info", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
+    fun step17Info(@RequestPart("file") filePart: FilePart): Mono<String> =
+        step17Service.fileInfo(filePart)
+
+    /** POST /test/step17/read — 파일 내용 읽기 (소용량) */
+    @PostMapping("/step17/read", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
+    fun step17Read(@RequestPart("file") filePart: FilePart): Mono<String> =
+        step17Service.readContent(filePart)
+
+    /** POST /test/step17/upload — 파일 저장 (transferTo) */
+    @PostMapping("/step17/upload", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
+    fun step17Upload(@RequestPart("file") filePart: FilePart): Mono<String> =
+        step17Service.saveFile(filePart)
+
+    /** POST /test/step17/upload-with-meta — 파일 + 폼 필드 함께 받기 */
+    @PostMapping("/step17/upload-with-meta", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
+    fun step17UploadWithMeta(
+        @RequestPart("file") filePart: FilePart,
+        @RequestPart("description") description: String,
+    ): Mono<String> = step17Service.uploadWithMeta(filePart, description)
+
+    /** POST /test/step17/upload-dbu — DataBufferUtils.write 직접 사용 */
+    @PostMapping("/step17/upload-dbu", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
+    fun step17UploadDbu(@RequestPart("file") filePart: FilePart): Mono<String> =
+        step17Service.saveWithDataBufferUtils(filePart)
 }
 

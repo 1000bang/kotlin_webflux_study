@@ -32,9 +32,10 @@ Kotlin + Spring WebFlux 단계별 학습용 프로젝트.
 | 15 | 리액티브 Controller | @RestController, Mono/Flux 반환, @RequestBody/@RequestPart |
 | 16 | 리액티브 Service | Mono.fromCallable, map/flatMap 체이닝, onErrorResume |
 | 17 | 파일 업로드 (WebFlux) | FilePart, DataBufferUtils, multipart |
-| 18 | 테스트 | @WebFluxTest, WebTestClient, StepVerifier |
+| 18 | R2DBC 사용
+| 19 | 테스트 | @WebFluxTest, WebTestClient, StepVerifier |
 | **Part 5 — 정리** |
-| 19 | 실전 패턴 | Controller → Service 흐름, 예외 처리, 로깅 |
+| 20 | 실전 패턴 | Controller → Service 흐름, 예외 처리, 로깅 |
 
 ---
 
